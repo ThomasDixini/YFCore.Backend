@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/YFCore.Api/YFCore.Api.csproj" />
+  <Project Path="src/YFCore.Application/YFCore.Application.csproj" />
+  <Project Path="src/YFCore.Domain/YFCore.Domain.csproj" />
+  <Project Path="src/YFCore.Infraestructure/YFCore.Infraestructure.csproj" />
+</Solution>

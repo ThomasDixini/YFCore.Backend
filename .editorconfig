@@ -1,0 +1,42 @@
+# Top-most EditorConfig file - do not look further up for settings
+root = true
+
+# All Files - Global Settings
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# XML/JSON/Markdown/Web Files - 2 Space Indentation
+[*.{json,xml,yml,md,html,css}]
+indent_size = 2
+
+# C# Code Styling & Code Analysis Rules
+[*.cs]
+# New line preferences
+dotnet_diagnostic.IDE0055.severity = warning      # Throws a warning on formatting mismatches
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# Using directive preferences
+dotnet_sort_system_directives_first = true        # Sort System namespaces first
+dotnet_separate_import_directive_groups = true     # Add blank line between namespace groups
+
+# Style & Var Rules
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+
+# Naming Conventions (Crucial for clean architecture)
+# Interfaces must begin with an 'I' (e.g., IAppointmentRepository)
+dotnet_naming_rule.interface_should_be_begeg_with_i.severity = warning
+dotnet_naming_rule.interface_should_be_begeg_with_i.symbols = interface_symbols
+dotnet_naming_rule.interface_should_be_begeg_with_i.style = i_prefix_style
+
+dotnet_naming_symbols.interface_symbols.applicable_kinds = interface
+
+dotnet_naming_style.i_prefix_style.required_prefix = I
+dotnet_naming_style.i_prefix_style.capitalization = pascal_case

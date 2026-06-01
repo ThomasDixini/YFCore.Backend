@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/tests/">
+    <Project Path="tests/YFCore.Tests.Unit/YFCore.Tests.Unit.csproj" />
+  </Folder>
   <Project Path="src/YFCore.Api/YFCore.Api.csproj" />
   <Project Path="src/YFCore.Application/YFCore.Application.csproj" />
   <Project Path="src/YFCore.Domain/YFCore.Domain.csproj" />

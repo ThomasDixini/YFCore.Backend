@@ -25,8 +25,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-    - name: Run Tests with Coverlet
-      run: dotnet test --configuration Release --no-restore --collect:"XPlat Code Coverage"
+    - name: Run Tests with Native Coverage
+      run: dotnet test --configuration Release --no-restore --coverage --coverage-output-format cobertura
 
     - name: Install ReportGenerator Tool
       run: dotnet tool install --global dotnet-reportgenerator-globaltool
@@ -34,7 +34,7 @@ jobs:
     - name: Generate Coverage Report
       run: |
         reportgenerator \
-          -reports:"**/TestResults/**/coverage.cobertura.xml" \
+          -reports:"**/TestResults/**/*.cobertura.xml" \
           -targetdir:"coveragereport" \
           -reporttypes:"HtmlInline_AzurePipelines;MarkdownSummary"
 

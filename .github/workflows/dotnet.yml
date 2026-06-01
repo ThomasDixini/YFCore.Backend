@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Run Tests with Native Coverage
-      run: dotnet test --configuration Release --no-restore --coverage --coverage-output-format cobertura
+      run: dotnet test --configuration Release --no-restore -- --coverage --coverage-output-format cobertura
 
     - name: Install ReportGenerator Tool
       run: dotnet tool install --global dotnet-reportgenerator-globaltool

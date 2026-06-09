@@ -35,7 +35,7 @@ namespace YFCore.Domain.ProductEntity
                 throw new ArgumentException("Description cannot be longer than 200 characters.");
             ArgumentNullException.ThrowIfNull(price.Currency, nameof(price.Currency));
             if (price.Amount < 0)
-                throw new ProductPriceNegativeException();
+                throw new AmountNegativeException();
             if (categoryId == Guid.Empty)
                 throw new ArgumentException("CategoryId cannot be empty.");
         }
@@ -56,7 +56,7 @@ namespace YFCore.Domain.ProductEntity
         {
             ArgumentNullException.ThrowIfNull(price.Currency, nameof(price.Currency));
             if (price.Amount < 0)
-                throw new ProductPriceNegativeException();
+                throw new AmountNegativeException();
 
             this.Price = price;
         }

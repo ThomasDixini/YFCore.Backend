@@ -60,7 +60,7 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
             var price = new Money(-1m, "USD");
             Action act = () => new Product("P1", "Name", "Description", price, Guid.NewGuid());
 
-            act.Should().Throw<ProductPriceNegativeException>().WithMessage("Product price cannot be negative.");
+            act.Should().Throw<AmountNegativeException>().WithMessage("Amount cannot be negative.");
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
 
             Action act = () => product.ChangePrice(invalidPrice);
 
-            act.Should().Throw<ProductPriceNegativeException>().WithMessage("Product price cannot be negative.");
+            act.Should().Throw<AmountNegativeException>().WithMessage("Amount cannot be negative.");
         }
 
         [Fact]

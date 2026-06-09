@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YFCore.Domain.Shared.ValueObjects
 {
-    public class Money
+    public sealed class Money
     {
         public decimal Amount { get; private set; }
         public string Currency { get; private set; }

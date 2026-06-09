@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace YFCore.Domain.Shared.Exceptions
 {
-    public class ProductPriceNegativeException : DomainException
+    public class AmountNegativeException : DomainException
     {
-        public ProductPriceNegativeException() : base("Product price cannot be negative.")
+        public AmountNegativeException() : base("Amount cannot be negative.")
         {
         }
     }

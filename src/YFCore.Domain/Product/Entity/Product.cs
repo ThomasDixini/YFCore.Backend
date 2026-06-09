@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using YFCore.Domain.ProductValueObjects;
 using YFCore.Domain.Shared.Exceptions;
+using YFCore.Domain.Shared.ValueObjects;
 
 namespace YFCore.Domain.ProductEntity
 {

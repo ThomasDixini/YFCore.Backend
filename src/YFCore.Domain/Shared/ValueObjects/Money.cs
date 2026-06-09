@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace YFCore.Domain.ProductValueObjects
+namespace YFCore.Domain.Shared.ValueObjects
 {
     public class Money
     {

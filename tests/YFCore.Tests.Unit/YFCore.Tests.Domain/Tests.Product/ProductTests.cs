@@ -3,8 +3,8 @@ using Xunit;
 using FluentAssertions;
 
 using YFCore.Domain.ProductEntity;
-using YFCore.Domain.ProductValueObjects;
 using YFCore.Domain.Shared.Exceptions;
+using YFCore.Domain.Shared.ValueObjects;
 
 namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
 {

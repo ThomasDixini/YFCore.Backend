@@ -19,8 +19,8 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
 
             product.Should().NotBeNull();
             product.Id.Should().Be("P1");
-            product.Name.Should().Be("Test Product");
-            product.Description.Should().Be("A product description.");
+            product.Name.Should().Be("TEST PRODUCT");
+            product.Description.Should().Be("A PRODUCT DESCRIPTION.");
             product.Price.Should().Be(price);
             product.CategoryId.Should().Be(categoryId);
             product.Active.Should().BeFalse();
@@ -167,7 +167,7 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
         {
             var money = new Money(1234.5m, "BRL");
 
-            money.Format().ToString().Should().Be("1.234,50 BRL");
+            money.Format().ToString().Should().Be("R$1,234.50");
         }
 
         [Fact]

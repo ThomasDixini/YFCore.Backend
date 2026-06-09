@@ -18,8 +18,8 @@ namespace YFCore.Domain.Categories.Entity
         {
             this.Validate(name, description);
             this.Id = id;
-            this.Name = name;
-            this.Description = description;
+            this.Name = name.ToUpper();
+            this.Description = description.ToUpper();
             this.Active = true;
         }
 

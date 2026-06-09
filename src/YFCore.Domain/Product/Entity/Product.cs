@@ -21,8 +21,8 @@ namespace YFCore.Domain.ProductEntity
         {
             this.Validate(name, description, price, categoryId);
             this.Id = id;
-            this.Name = name;
-            this.Description = description;
+            this.Name = name.ToUpper();
+            this.Description = description.ToUpper();
             this.Price = price;
             this.CategoryId = categoryId;
         }

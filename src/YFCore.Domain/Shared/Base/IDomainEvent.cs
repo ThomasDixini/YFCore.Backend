@@ -1,0 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace YFCore.Domain.Shared.Base
+{
+    public interface IDomainEvent
+    {
+        Guid Id { get; }
+        DateTime OccurredAt { get; }
+    }
+}

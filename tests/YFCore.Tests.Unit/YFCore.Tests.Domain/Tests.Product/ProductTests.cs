@@ -193,5 +193,26 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
 
             money.Format().Should().Be("1,234.50 XYZ");
         }
+
+        [Fact]
+        public void ChangeCategory_ShouldUpdateCategoryId()
+        {
+            var product = new Product("P1", "Test Product", "Description", new Money(10m, "USD"), Guid.NewGuid());
+            var newCategoryId = Guid.NewGuid();
+
+            product.ChangeCategory(newCategoryId);
+
+            product.CategoryId.Should().Be(newCategoryId);
+        }
+        [Fact]
+        public void ChangeCategory_ShouldThrowException_WhenCategoryIdIsEmpty()
+        {
+            var product = new Product("P1", "Test Product", "Description", new Money(10m, "USD"), Guid.NewGuid());
+            var invalidCategoryId = Guid.Empty;
+
+            Action act = () => product.ChangeCategory(invalidCategoryId);
+
+            act.Should().Throw<ArgumentException>().WithMessage("CategoryId cannot be empty.");
+        }
     }
 }

@@ -61,6 +61,15 @@ namespace YFCore.Domain.ProductEntity
             this.Price = price;
         }
 
+        public void ChangeCategory(Guid categoryId)
+        {
+            if (categoryId == Guid.Empty)
+                throw new ArgumentException("CategoryId cannot be empty.");
+            if (CategoryId == categoryId)
+                return;
+            this.CategoryId = categoryId;
+        }
+
         public void Activate()
         {
             this.Active = true;

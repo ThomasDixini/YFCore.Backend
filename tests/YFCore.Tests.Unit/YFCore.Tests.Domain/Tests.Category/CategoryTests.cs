@@ -13,6 +13,45 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsCategory
     public class TestsCategory
     {
         [Fact]
+        public void CategoryConstructor_ShouldInitializeProperties_WhenValidDataIsProvided()
+        {
+            Guid categoryId = Guid.NewGuid();
+            string name = "Test Category";
+            string description = "This is a test category.";
+
+            Category category = new Category(categoryId, name, description);
+
+            category.Should().NotBeNull();
+            category.Id.Should().Be(categoryId);
+            category.Name.Should().Be("TEST CATEGORY");
+            category.Description.Should().Be("THIS IS A TEST CATEGORY.");
+            category.Active.Should().BeTrue();
+        }
+
+        [Fact]
+        public void CategoryConstructor_ShouldThrow_WhenNameIsEmpty()
+        {
+            Guid categoryId = Guid.NewGuid();
+            string description = "This is a test category.";
+
+            Action act = () => new Category(categoryId, "", description);
+
+            act.Should().Throw<ArgumentException>().WithMessage("Name cannot be empty.");
+        }
+
+        [Fact]
+        public void CategoryConstructor_ShouldThrow_WhenDescriptionIsTooLong()
+        {
+            Guid categoryId = Guid.NewGuid();
+            string name = "Test Category";
+            string longDescription = new string('a', 201);
+
+            Action act = () => new Category(categoryId, name, longDescription);
+
+            act.Should().Throw<ArgumentException>().WithMessage("Description cannot be longer than 200 characters.");
+        }
+
+        [Fact]
         public void CategoryName_ShouldBe_Updated()
         {
             Guid categoryId = Guid.NewGuid();

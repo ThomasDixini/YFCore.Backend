@@ -1,6 +1,8 @@
-﻿using System;
-using Xunit;
+using System;
+
 using FluentAssertions;
+
+using Xunit;
 
 using YFCore.Domain.ProductEntity;
 using YFCore.Domain.Shared.Exceptions;

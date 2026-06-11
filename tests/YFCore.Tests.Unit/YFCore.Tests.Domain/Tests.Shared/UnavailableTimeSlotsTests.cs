@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Xunit;
+
 using FluentAssertions;
+
+using Xunit;
 
 using YFCore.Domain.Shared.ValueObjects;
 

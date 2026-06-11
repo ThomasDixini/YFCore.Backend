@@ -16,16 +16,18 @@ namespace YFCore.Domain.Appointments.Entity
         public Money Price { get; private set; }
         public Guid ProcedureTypeId { get; private set; }
         public Guid UserId { get; private set; }
-        public Appointment(Money price, Guid procedureTypeId, Guid userId)
+        public UnavailableTimeSlots TimeSlots { get; private set; }
+        public Appointment(Money price, Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
         {
-            this.Validate(price, procedureTypeId, userId);
+            this.Validate(price, procedureTypeId, userId, timeSlots);
             this.Status = AppointmentStatus.AwaitingConfirmation;
             this.Price = price;
             this.ProcedureTypeId = procedureTypeId;
             this.UserId = userId;
+            this.TimeSlots = timeSlots;
         }
 
-        public void Validate(Money price, Guid procedureTypeId, Guid userId)
+        public void Validate(Money price, Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
         {
             ArgumentNullException.ThrowIfNull(price.Currency, nameof(price.Currency));
             if (price.Amount < 0)
@@ -34,6 +36,8 @@ namespace YFCore.Domain.Appointments.Entity
                 throw new ArgumentException("ProcedureTypeId cannot be empty.");
             if (userId == Guid.Empty)
                 throw new ArgumentException("UserId cannot be empty.");
+            if (timeSlots == null || timeSlots.TimeSlots == null || !timeSlots.TimeSlots.Any())
+                throw new ArgumentException("TimeSlots cannot be null or empty.");
         }
 
         public void ChangePrice(Money price)

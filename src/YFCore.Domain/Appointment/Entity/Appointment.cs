@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YFCore.Domain.Appointment.Enum;
+using YFCore.Domain.Appointment.Events;
 using YFCore.Domain.Shared.Base;
 using YFCore.Domain.Shared.Exceptions;
 using YFCore.Domain.Shared.ValueObjects;
@@ -60,6 +61,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status != AppointmentStatus.AwaitingConfirmation)
                 throw new DomainException("Only appointments in awaiting confirmation can be scheduled.");
             this.Status = AppointmentStatus.Scheduled;
+            AddDomainEvent(new AppointmentConfirmed(this.Id, DateTime.UtcNow));
         }
 
         public void Cancel()
@@ -69,6 +71,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status == AppointmentStatus.Completed)
                 throw new DomainException("A completed appointment cannot be cancelled.");
             this.Status = AppointmentStatus.Cancelled;
+            AddDomainEvent(new AppointmentCancelled(this.Id, DateTime.UtcNow));
         }
 
         public void Complete()
@@ -76,6 +79,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status != AppointmentStatus.Scheduled)
                 throw new DomainException("Only scheduled appointments can be completed.");
             this.Status = AppointmentStatus.Completed;
+            AddDomainEvent(new AppointmentFinished(this.Id, DateTime.UtcNow));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace YFCore.Domain.Appointments.Entity
     {
         public AppointmentStatus Status { get; private set; }
         public Money Price { get; private set; }
-        public Guid ProcedureTypeId { get; private set; }
+        public Guid ProcedureTypeId { get; init; }
         public Guid UserId { get; private set; }
         public UnavailableTimeSlots TimeSlots { get; private set; }
         public Appointment(Money price, Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
@@ -47,13 +47,6 @@ namespace YFCore.Domain.Appointments.Entity
             if (price.Amount < 0)
                 throw new ArgumentException("Price cannot be negative.");
             this.Price = price;
-        }
-
-        public void ChangeProcedureType(Guid procedureTypeId)
-        {
-            if (procedureTypeId == Guid.Empty)
-                throw new ArgumentException("ProcedureTypeId cannot be empty.");
-            this.ProcedureTypeId = procedureTypeId;
         }
 
         public void Schedule()

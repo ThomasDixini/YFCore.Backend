@@ -12,6 +12,9 @@ namespace YFCore.Domain.Shared.ValueObjects
             ArgumentNullException.ThrowIfNull(value, nameof(value));
 
             var normalized = Normalize(value);
+            if (normalized == null)
+                throw new ArgumentException("Phone is not valid.", nameof(value));
+
             if (string.IsNullOrWhiteSpace(normalized))
                 throw new ArgumentException("Phone cannot be empty.", nameof(value));
 
@@ -21,7 +24,7 @@ namespace YFCore.Domain.Shared.ValueObjects
             this.Value = normalized;
         }
 
-        private static string Normalize(string value)
+        private static string? Normalize(string value)
         {
             var trimmed = value.Trim();
             if (trimmed.Length == 0)
@@ -44,7 +47,7 @@ namespace YFCore.Domain.Shared.ValueObjects
                 }
                 else
                 {
-                    return string.Empty;
+                    return null;
                 }
             }
 

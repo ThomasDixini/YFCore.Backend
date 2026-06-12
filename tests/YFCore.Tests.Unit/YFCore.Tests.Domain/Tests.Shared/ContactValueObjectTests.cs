@@ -19,13 +19,21 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsShared
             email.ToString().Should().Be("user@example.com");
         }
 
+        [Fact]
+        public void Email_ShouldThrow_WhenValueIsNull()
+        {
+            string? value = null;
+            Action act = () => new Email(value!);
+
+            act.Should().Throw<ArgumentNullException>();
+        }
+
         [Theory]
-        [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public void Email_ShouldThrow_WhenValueIsNullOrEmpty(string value)
+        public void Email_ShouldThrow_WhenValueIsEmptyOrWhitespace(string value)
         {
-            Action act = () => new Email(value!);
+            Action act = () => new Email(value);
 
             act.Should().Throw<ArgumentException>().WithMessage("Email cannot be empty.*");
         }
@@ -51,13 +59,21 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsShared
             phone.ToString().Should().Be("+5511912345678");
         }
 
+        [Fact]
+        public void Phone_ShouldThrow_WhenValueIsNull()
+        {
+            string? value = null;
+            Action act = () => new Phone(value!);
+
+            act.Should().Throw<ArgumentNullException>();
+        }
+
         [Theory]
-        [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public void Phone_ShouldThrow_WhenValueIsNullOrEmpty(string value)
+        public void Phone_ShouldThrow_WhenValueIsEmptyOrWhitespace(string value)
         {
-            Action act = () => new Phone(value!);
+            Action act = () => new Phone(value);
 
             act.Should().Throw<ArgumentException>().WithMessage("Phone cannot be empty.*");
         }

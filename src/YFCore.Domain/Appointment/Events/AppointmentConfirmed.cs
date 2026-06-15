@@ -4,17 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YFCore.Domain.Shared.Base;
+using YFCore.Domain.Shared.ValueObjects;
 
-namespace YFCore.Domain.Appointment.Events
+namespace YFCore.Domain.Appointments.Events
 {
     public class AppointmentConfirmed : DomainEventBase
     {
-        public Guid AppointmentId { get; private set; }
-        public DateTime ConfirmedAt { get; private set; }
+        public string Token { get; private set; }
+        public Date ConfirmedAt { get; private set; }
 
-        public AppointmentConfirmed(Guid appointmentId, DateTime confirmedAt)
+        public AppointmentConfirmed(string token, Date confirmedAt)
         {
-            this.AppointmentId = appointmentId;
+            this.Token = token;
             this.ConfirmedAt = confirmedAt;
         }
     }

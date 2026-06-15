@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using YFCore.Domain.Appointment.Enum;
-using YFCore.Domain.Appointment.Events;
+using YFCore.Domain.Appointments.Enum;
+using YFCore.Domain.Appointments.Events;
 using YFCore.Domain.Shared.Base;
 using YFCore.Domain.Shared.Exceptions;
 using YFCore.Domain.Shared.ValueObjects;
@@ -17,6 +17,7 @@ namespace YFCore.Domain.Appointments.Entity
         public Money Price { get; private set; }
         public Guid ProcedureTypeId { get; init; }
         public Guid UserId { get; private set; }
+        public string Token { get; private set; }
         public UnavailableTimeSlots TimeSlots { get; private set; }
         public Appointment(Money price, Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
         {
@@ -25,6 +26,7 @@ namespace YFCore.Domain.Appointments.Entity
             this.Price = price;
             this.ProcedureTypeId = procedureTypeId;
             this.UserId = userId;
+            this.Token = Guid.NewGuid().ToString();
             this.TimeSlots = timeSlots;
         }
 
@@ -54,7 +56,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status != AppointmentStatus.AwaitingConfirmation)
                 throw new DomainException("Only appointments in awaiting confirmation can be scheduled.");
             this.Status = AppointmentStatus.Scheduled;
-            AddDomainEvent(new AppointmentConfirmed(this.Id, DateTime.UtcNow));
+            AddDomainEvent(new AppointmentConfirmed(this.Token, new Date(DateOnly.FromDateTime(DateTime.Now))));
         }
 
         public void Cancel()
@@ -64,7 +66,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status == AppointmentStatus.Completed)
                 throw new DomainException("A completed appointment cannot be cancelled.");
             this.Status = AppointmentStatus.Cancelled;
-            AddDomainEvent(new AppointmentCancelled(this.Id, DateTime.UtcNow));
+            AddDomainEvent(new AppointmentCancelled(this.Token, new Date(DateOnly.FromDateTime(DateTime.Now))));
         }
 
         public void Complete()
@@ -72,7 +74,7 @@ namespace YFCore.Domain.Appointments.Entity
             if (this.Status != AppointmentStatus.Scheduled)
                 throw new DomainException("Only scheduled appointments can be completed.");
             this.Status = AppointmentStatus.Completed;
-            AddDomainEvent(new AppointmentFinished(this.Id, DateTime.UtcNow));
+            AddDomainEvent(new AppointmentFinished(this.Token, new Date(DateOnly.FromDateTime(DateTime.Now))));
         }
     }
 }

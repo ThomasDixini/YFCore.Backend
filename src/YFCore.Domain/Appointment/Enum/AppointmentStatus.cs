@@ -1,4 +1,4 @@
-namespace YFCore.Domain.Appointment.Enum
+namespace YFCore.Domain.Appointments.Enum
 {
     public enum AppointmentStatus
     {

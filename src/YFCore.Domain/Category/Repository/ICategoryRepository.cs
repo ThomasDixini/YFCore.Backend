@@ -10,5 +10,6 @@ namespace YFCore.Domain.Categories.Repository
 {
     public interface ICategoryRepository : IRepository<Category>
     {
+        Task<IEnumerable<TResult>> GetAllAsync<TResult>();
     }
 }

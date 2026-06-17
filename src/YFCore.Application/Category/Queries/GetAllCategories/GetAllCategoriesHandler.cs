@@ -18,7 +18,11 @@ namespace YFCore.Application.Category.Queries.GetAllCategories
         }
         public async Task<IEnumerable<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
         {
-            return await _repository.GetAllAsync<CategoryDto>();
+            return await _repository.GetAllAsync<CategoryDto>(c => new CategoryDto(
+                c.Id,
+                c.Name,
+                c.Description
+            ));
         }
     }
 }

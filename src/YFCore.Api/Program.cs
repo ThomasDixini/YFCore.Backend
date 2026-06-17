@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+
 using Scalar.AspNetCore;
 
 using Serilog;
 
 using YFCore.Api.Middlewares.Global;
+using YFCore.Application.Category.Queries.GetAllCategories;
+using YFCore.Domain.Categories.Repository;
+using YFCore.Infraestructure.Persistance;
+using YFCore.Infraestructure.Repository.Categories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +23,21 @@ builder.Services.AddProblemDetails(options =>
     };
 });
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<Program>();
+    cfg.RegisterServicesFromAssemblyContaining<GetAllCategoriesQuery>();
+});
+builder.Services.AddControllers();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        x => x.MigrationsAssembly("YFCore.Infraestructure")
+    );
+});
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 var app = builder.Build();
 
@@ -33,4 +53,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 await app.RunAsync();
+

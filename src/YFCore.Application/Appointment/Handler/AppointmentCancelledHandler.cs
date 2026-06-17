@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 using YFCore.Application.Contracts;
 using YFCore.Domain.Appointments.Events;
-using YFCore.Domain.Appointments.Repository;
 
 namespace YFCore.Application.Appointments.Handler
 {

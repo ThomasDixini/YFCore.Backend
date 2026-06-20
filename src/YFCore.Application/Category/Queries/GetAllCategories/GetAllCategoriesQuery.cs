@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using MediatR;
 
 namespace YFCore.Application.Category.Queries.GetAllCategories

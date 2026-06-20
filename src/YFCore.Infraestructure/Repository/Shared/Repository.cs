@@ -32,7 +32,7 @@ namespace YFCore.Infraestructure.Repository.Shared
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity?> GetByIdAsync(string id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }

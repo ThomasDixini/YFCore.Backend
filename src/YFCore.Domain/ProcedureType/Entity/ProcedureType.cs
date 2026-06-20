@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YFCore.Domain.Shared.Base;
-using YFCore.Domain.Shared.ValueObjects;
 using YFCore.Domain.Shared.Helpers;
+using YFCore.Domain.Shared.ValueObjects;
 
-namespace YFCore.Domain.ProcedureType.Entity
+namespace YFCore.Domain.ProcedureTypes.Entity
 {
     public class ProcedureType : BaseEntity
     {

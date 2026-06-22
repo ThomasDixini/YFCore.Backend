@@ -46,6 +46,26 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsProcedureType
         }
 
         [Fact]
+        public void ProcedureTypeConstructor_ShouldThrow_WhenNameIsWhitespace()
+        {
+            string description = "A medical consultation appointment.";
+
+            Action act = () => new ProcedureType("   ", description);
+
+            act.Should().Throw<ArgumentException>().WithMessage("Name cannot be empty.");
+        }
+
+        [Fact]
+        public void ProcedureTypeConstructor_ShouldThrow_WhenDescriptionIsNull()
+        {
+            string name = "Consultation";
+
+            Action act = () => new ProcedureType(name, null!);
+
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void ProcedureTypeConstructor_ShouldThrow_WhenDescriptionIsTooLong()
         {
             string name = "Consultation";
@@ -94,6 +114,18 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsProcedureType
         }
 
         [Fact]
+        public void ProcedureTypeDescription_ShouldThrowException_WhenDescriptionIsNull()
+        {
+            string name = "Consultation";
+            string description = "A medical consultation appointment.";
+            ProcedureType procedureType = new ProcedureType(name, description);
+
+            Action act = () => procedureType.ChangeDescription(null!);
+
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void ProcedureTypePrice_ShouldBe_Updated()
         {
             string name = "Consultation";
@@ -106,6 +138,18 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsProcedureType
             procedureType.Price.Should().Be(newPrice);
             procedureType.Price.Amount.Should().Be(200.00m);
             procedureType.Price.Currency.Should().Be("BRL");
+        }
+
+        [Fact]
+        public void ProcedureTypeChangePrice_ShouldThrowException_WhenPriceIsNull()
+        {
+            string name = "Consultation";
+            string description = "A medical consultation appointment.";
+            ProcedureType procedureType = new ProcedureType(name, description);
+
+            Action act = () => procedureType.ChangePrice(null!);
+
+            act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

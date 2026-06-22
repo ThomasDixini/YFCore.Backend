@@ -28,6 +28,7 @@ namespace YFCore.Domain.ProcedureTypes.Entity
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.");
+            ArgumentNullException.ThrowIfNull(description, nameof(description));
             if (description.Length > 200)
                 throw new ArgumentException("Description cannot be longer than 200 characters.");
             ArgumentNullException.ThrowIfNull(price.Currency, nameof(price.Currency));
@@ -37,11 +38,13 @@ namespace YFCore.Domain.ProcedureTypes.Entity
 
         public void ChangeName(string name)
         {
+            ArgumentNullException.ThrowIfNull(name, nameof(name));
             this.Name = name.ToUpper();
         }
 
         public void ChangeDescription(string description)
         {
+            ArgumentNullException.ThrowIfNull(description, nameof(description));
             if (description.Length > 200)
                 throw new ArgumentException("Description cannot be longer than 200 characters.");
             this.Description = description.ToUpper();
@@ -49,6 +52,7 @@ namespace YFCore.Domain.ProcedureTypes.Entity
 
         public void ChangePrice(Money price)
         {
+            ArgumentNullException.ThrowIfNull(price, nameof(price));
             ArgumentNullException.ThrowIfNull(price.Currency, nameof(price.Currency));
             if (price.Amount < 0)
                 throw new ArgumentException("Price cannot be negative.");

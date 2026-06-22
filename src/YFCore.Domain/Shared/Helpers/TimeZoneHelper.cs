@@ -19,10 +19,6 @@ namespace YFCore.Domain.Shared.Helpers
                 {
                     return TimeZoneInfo.Local;
                 }
-                catch (InvalidTimeZoneException)
-                {
-                    return TimeZoneInfo.Local;
-                }
             }
 
             return TimeZoneInfo.Local;

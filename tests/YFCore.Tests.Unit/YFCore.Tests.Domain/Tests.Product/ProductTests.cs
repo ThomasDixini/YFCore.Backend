@@ -197,6 +197,46 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.Tests.Products
         }
 
         [Fact]
+        public void MoneyFormat_ShouldReturnCurrencySymbol_ForGbp()
+        {
+            var money = new Money(1234.5m, "GBP");
+
+            money.Format().Should().Be("£1,234.50");
+        }
+
+        [Fact]
+        public void MoneyFormat_ShouldReturnCurrencySymbol_ForJpy()
+        {
+            var money = new Money(1234m, "JPY");
+
+            money.Format().Should().Be("¥1,234");
+        }
+
+        [Fact]
+        public void MoneyFormat_ShouldReturnCurrencySymbol_ForAud()
+        {
+            var money = new Money(1234.5m, "AUD");
+
+            money.Format().Should().Be("A$1,234.50");
+        }
+
+        [Fact]
+        public void MoneyFormat_ShouldReturnCurrencySymbol_ForCad()
+        {
+            var money = new Money(1234.5m, "CAD");
+
+            money.Format().Should().Be("C$1,234.50");
+        }
+
+        [Fact]
+        public void MoneyToString_ShouldReturnAmountAndCurrency()
+        {
+            var money = new Money(1234.5m, "USD");
+
+            money.ToString().Should().Be("1234.50 USD");
+        }
+
+        [Fact]
         public void ChangeCategory_ShouldUpdateCategoryId()
         {
             var product = new Product("P1", "Test Product", "Description", new Money(10m, "USD"), Guid.NewGuid());

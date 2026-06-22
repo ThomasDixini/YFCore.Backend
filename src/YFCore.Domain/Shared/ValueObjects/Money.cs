@@ -34,7 +34,7 @@ namespace YFCore.Domain.Shared.ValueObjects
 
         override public string ToString()
         {
-            return Amount.ToString("N2") + " " + Currency;
+            return Amount.ToString("0.00", CultureInfo.InvariantCulture) + " " + Currency;
         }
     }
 }

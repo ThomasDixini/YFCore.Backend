@@ -43,5 +43,45 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsShared
 
             date.Format().Should().Be("2026-06-09");
         }
+
+        [Fact]
+        public void Format_ShouldReturnPtBrStyle_WhenLocaleIsPtBr()
+        {
+            var date = new Date(2026, 6, 9, "PT-BR");
+
+            date.Format().Should().Be("09/06/2026");
+        }
+
+        [Fact]
+        public void Format_ShouldReturnDeStyle_WhenLocaleIsDe()
+        {
+            var date = new Date(2026, 6, 9, "DE");
+
+            date.Format().Should().Be("09.06.2026");
+        }
+
+        [Fact]
+        public void Format_ShouldReturnJpStyle_WhenLocaleIsJp()
+        {
+            var date = new Date(2026, 6, 9, "JP");
+
+            date.Format().Should().Be("2026/06/09");
+        }
+
+        [Fact]
+        public void Format_ShouldReturnIsoStyle_WhenLocaleIsIso()
+        {
+            var date = new Date(2026, 6, 9, "ISO");
+
+            date.Format().Should().Be("2026-06-09");
+        }
+
+        [Fact]
+        public void Format_ShouldDefaultToIso_WhenLocaleIsNull()
+        {
+            var date = new Date(new DateOnly(2026, 6, 9), null);
+
+            date.Format().Should().Be("2026-06-09");
+        }
     }
 }

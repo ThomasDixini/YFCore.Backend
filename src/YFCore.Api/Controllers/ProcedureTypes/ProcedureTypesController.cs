@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using YFCore.Application.ProcedureType.Queries.GetProcedureTypeById;
+using YFCore.Application.ProcedureType.Queries.GetProcedureTypes;
 
 namespace YFCore.Api.Controllers.ProcedureTypes
 {
@@ -19,6 +20,12 @@ namespace YFCore.Api.Controllers.ProcedureTypes
         public ProcedureTypesController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+        [HttpGet]
+        public async Task<ActionResult<ApiResponse<IEnumerable<ProcedureTypeDTO>>>> GetProcedureTypes()
+        {
+            var procedureTypes = await _mediator.Send(new GetProcedureTypesQuery());
+            return OkResponse(procedureTypes, "Procedures Type retrieved successfully");
         }
         [HttpGet("{Id}")]
         public async Task<ActionResult<ApiResponse<ProcedureTypeDTO>>> GetProcedureType(Guid Id)

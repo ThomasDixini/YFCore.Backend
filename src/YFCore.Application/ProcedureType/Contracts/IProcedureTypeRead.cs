@@ -10,5 +10,6 @@ namespace YFCore.Application.ProcedureType.Contracts
     public interface IProcedureTypeRead
     {
         Task<ProcedureTypeDTO?> GetByIdAsync(Guid id);
+        Task<IEnumerable<ProcedureTypeDTO>> GetProcedureTypesAsync();
     }
 }

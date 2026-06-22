@@ -24,5 +24,15 @@ namespace YFCore.Infraestructure.Repository.ProcedureTypes
                 x.Description
             )).FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<ProcedureTypeDTO>> GetProcedureTypesAsync()
+        {
+            return await _context.ProcedureTypes.Select(x => new ProcedureTypeDTO
+            (
+                x.Id,
+                x.Name,
+                x.Description
+            )).ToArrayAsync();
+        }
     }
 }

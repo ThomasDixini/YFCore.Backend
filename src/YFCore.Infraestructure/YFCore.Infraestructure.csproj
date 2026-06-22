@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YFCore.Domain\YFCore.Domain.csproj" />
+    <ProjectReference Include="..\YFCore.Application\YFCore.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,9 +15,13 @@ namespace YFCore.Domain.Shared.Helpers
                 {
                     return TimeZoneInfo.FindSystemTimeZoneById(id);
                 }
-                catch
+                catch (TimeZoneNotFoundException)
                 {
-                    // Fall through to local if lookup fails
+                    return TimeZoneInfo.Local;
+                }
+                catch (InvalidTimeZoneException)
+                {
+                    return TimeZoneInfo.Local;
                 }
             }
 

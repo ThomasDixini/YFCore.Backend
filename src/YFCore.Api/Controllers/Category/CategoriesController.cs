@@ -12,11 +12,11 @@ using YFCore.Application.Category.Queries.GetAllCategories;
 namespace YFCore.Api.Controllers.Categories
 {
     [Route("api/[controller]")]
-    public class Categories : BaseController
+    public class CategoriesController : BaseController
     {
         private readonly IMediator _mediator;
 
-        public Categories(IMediator mediator)
+        public CategoriesController(IMediator mediator)
         {
             _mediator = mediator;
         }

@@ -14,14 +14,14 @@ namespace YFCore.Domain.ProcedureTypes.Entity
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Money Price { get; private set; }
-        public UnavailableTimeSlots UnavailableTimeSlots { get; private set; }
-        public ProcedureType(string name, string description, Money price, UnavailableTimeSlots unavailableTimeSlots)
+
+        public ProcedureType(string name, string description)
         {
+            var price = new Money(0, "USD");
             this.Validate(name, description, price);
             this.Name = name.ToUpper();
             this.Description = description.ToUpper();
             this.Price = price;
-            this.UnavailableTimeSlots = unavailableTimeSlots;
         }
 
         public void Validate(string name, string description, Money price)
@@ -53,17 +53,6 @@ namespace YFCore.Domain.ProcedureTypes.Entity
             if (price.Amount < 0)
                 throw new ArgumentException("Price cannot be negative.");
             this.Price = price;
-        }
-
-        public void MakeTimeUnavailable(UnavailableTimeSlots timeSlots)
-        {
-            if (timeSlots == this.UnavailableTimeSlots) return;
-            var today = TimeZoneHelper.GetTodayInAppTimeZone();
-
-            if (timeSlots.Date.Value < today)
-                throw new ArgumentException("Cannot set unavailable times for dates in the past.");
-
-            this.UnavailableTimeSlots = timeSlots;
         }
     }
 }

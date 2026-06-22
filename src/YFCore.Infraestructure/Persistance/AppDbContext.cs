@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 using YFCore.Domain.Categories.Entity;
+using YFCore.Domain.ProcedureTypes.Entity;
 using YFCore.Infraestructure.Models.Categories;
 
 namespace YFCore.Infraestructure.Persistance
@@ -17,6 +18,7 @@ namespace YFCore.Infraestructure.Persistance
         {
         }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProcedureType> ProcedureTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(

@@ -6,8 +6,10 @@ using Serilog;
 
 using YFCore.Api.Middlewares.Global;
 using YFCore.Application.Category.Queries.GetAllCategories;
-using YFCore.Application.ProcedureType.Contracts;
+using YFCore.Application.Contracts;
+using YFCore.Application.ProcedureTypes.Contracts;
 using YFCore.Domain.Categories.Repository;
+using YFCore.Domain.ProcedureTypes.Repository;
 using YFCore.Infraestructure.Persistance;
 using YFCore.Infraestructure.Repository.Categories;
 using YFCore.Infraestructure.Repository.ProcedureTypes;
@@ -39,7 +41,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         x => x.MigrationsAssembly("YFCore.Infraestructure")
     );
 });
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProcedureTypeRepository, ProcedureTypeRepository>();
 builder.Services.AddScoped<IProcedureTypeRead, ProcedureTypeRead>();
 
 var app = builder.Build();

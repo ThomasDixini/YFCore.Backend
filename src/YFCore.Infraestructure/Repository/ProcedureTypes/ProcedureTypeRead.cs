@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using YFCore.Application.ProcedureType.Contracts;
-using YFCore.Application.ProcedureType.Queries.GetProcedureTypeById;
+using YFCore.Application.ProcedureTypes.Contracts;
+using YFCore.Application.ProcedureTypes.Queries.GetProcedureTypeById;
 using YFCore.Infraestructure.Persistance;
 using YFCore.Infraestructure.Repository.Shared;
 

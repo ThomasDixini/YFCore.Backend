@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using YFCore.Application.ProcedureType.Queries.GetProcedureTypeById;
+using YFCore.Application.ProcedureTypes.Queries.GetProcedureTypeById;
 
-namespace YFCore.Application.ProcedureType.Contracts
+namespace YFCore.Application.ProcedureTypes.Contracts
 {
     public interface IProcedureTypeRead
     {

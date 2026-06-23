@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using MediatR;
 
-namespace YFCore.Application.ProcedureType.Queries.GetProcedureTypeById
+namespace YFCore.Application.ProcedureTypes.Queries.GetProcedureTypeById
 {
     public record GetProcedureTypeByIdQuery(Guid Id) : IRequest<ProcedureTypeDTO>
     {

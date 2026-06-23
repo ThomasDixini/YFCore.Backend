@@ -11,8 +11,10 @@ namespace YFCore.Api.Controllers
             => Ok(new ApiResponse<T>(true, data, message));
 
         protected ActionResult<ApiResponse<T>> CreatedResponse<T>(string actionName, object? routeValues, T data, string? message = null)
-            => CreatedAtAction(actionName, routeValues, new ApiResponse<T>(true, data, message));
-
+        {
+            var routeValuesDictionary = new Microsoft.AspNetCore.Routing.RouteValueDictionary(routeValues);
+            return CreatedAtAction(actionName, routeValuesDictionary, new ApiResponse<T>(true, data, message));
+        }
         protected ActionResult<ApiResponse<object?>> BadRequestResponse(string? message = null, IEnumerable<string>? errors = null)
             => BadRequest(new ApiResponse<object?>(false, null, message, errors));
 

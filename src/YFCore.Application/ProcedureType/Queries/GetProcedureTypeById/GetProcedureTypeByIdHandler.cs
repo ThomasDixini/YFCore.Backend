@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using MediatR;
 
-using YFCore.Application.ProcedureType.Contracts;
+using YFCore.Application.ProcedureTypes.Contracts;
 
-namespace YFCore.Application.ProcedureType.Queries.GetProcedureTypeById
+namespace YFCore.Application.ProcedureTypes.Queries.GetProcedureTypeById
 {
     public class GetProcedureTypeByIdHandler : IRequestHandler<GetProcedureTypeByIdQuery, ProcedureTypeDTO?>
     {

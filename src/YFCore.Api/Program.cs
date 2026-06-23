@@ -1,3 +1,7 @@
+using FluentValidation;
+
+using MediatR;
+
 using Microsoft.EntityFrameworkCore;
 
 using Scalar.AspNetCore;
@@ -7,7 +11,9 @@ using Serilog;
 using YFCore.Api.Middlewares.Global;
 using YFCore.Application.Category.Queries.GetAllCategories;
 using YFCore.Application.Contracts;
+using YFCore.Application.ProcedureTypes.Commands.CreateProcedureType;
 using YFCore.Application.ProcedureTypes.Contracts;
+using YFCore.Application.Shared.Validators;
 using YFCore.Domain.Categories.Repository;
 using YFCore.Domain.ProcedureTypes.Repository;
 using YFCore.Infraestructure.Persistance;
@@ -41,6 +47,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         x => x.MigrationsAssembly("YFCore.Infraestructure")
     );
 });
+builder.Services.AddValidatorsFromAssemblyContaining<CreateProcedureTypeCommandValidator>();
+builder.Services.AddTransient(
+    typeof(IPipelineBehavior<,>),
+    typeof(ValidationBehavior<,>)
+);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProcedureTypeRepository, ProcedureTypeRepository>();

@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using YFCore.Application.ProcedureTypes.Commands.CreateProcedureType;
+using YFCore.Application.ProcedureTypes.Commands.UpdateProcedureTypeCommand;
 using YFCore.Application.ProcedureTypes.Queries.GetProcedureTypeById;
 using YFCore.Application.ProcedureTypes.Queries.GetProcedureTypes;
 
@@ -39,6 +40,12 @@ namespace YFCore.Api.Controllers.ProcedureTypes
         {
             var procedureTypeId = await _mediator.Send(command);
             return CreatedResponse(nameof(GetProcedureTypeById), new { id = procedureTypeId }, procedureTypeId.ToString(), "Procedure Type created successufully.");
+        }
+        [HttpPatch]
+        public async Task<ActionResult<ApiResponse<object>>> Update(UpdateProcedureTypeCommand command)
+        {
+            var procedureTypeUpdated = await _mediator.Send(command);
+            return OkResponse(procedureTypeUpdated, "Procedure type updated successfully.");
         }
     }
 }

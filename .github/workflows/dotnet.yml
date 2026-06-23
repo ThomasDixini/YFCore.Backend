@@ -81,6 +81,6 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       shell: bash
       run: |
-        ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"ThomasDixini_YFCore.Backend" /o:"thomasdixini" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+        ${{ runner.temp }}/scanner/dotnet-sonarscanner begin /k:"ThomasDixini_YFCore.Backend" /o:"thomasdixini" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths="**/.cobertura.xml"
         dotnet build
         ${{ runner.temp }}/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"

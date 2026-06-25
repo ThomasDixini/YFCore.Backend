@@ -7,8 +7,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 using YFCore.Api.Controllers;
-using YFCore.Application.Category.Queries.GetAllCategories;
-
+using YFCore.Application.Categories.Queries.Dtos;
+using YFCore.Application.Categories.Queries.GetAllCategories;
+using YFCore.Application.Categories.Queries.GetCategoryById;
+using YFCore.Domain.Categories.Entity;
 namespace YFCore.Api.Controllers.Categories
 {
     [Route("api/[controller]")]
@@ -26,6 +28,12 @@ namespace YFCore.Api.Controllers.Categories
         {
             var categories = await _mediator.Send(new GetAllCategoriesQuery());
             return OkResponse(categories, "Categories retrieved successfully.");
+        }
+        [HttpGet("id")]
+        public async Task<ActionResult<ApiResponse<object>>> GetById(Guid id)
+        {
+            var category = await _mediator.Send(new GetCategoryByIdQuery(id));
+            return OkResponse(category, "Category retrieved successfully.");
         }
     }
 

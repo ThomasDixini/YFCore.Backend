@@ -9,7 +9,7 @@ using Scalar.AspNetCore;
 using Serilog;
 
 using YFCore.Api.Middlewares.Global;
-using YFCore.Application.Category.Queries.GetAllCategories;
+using YFCore.Application.Categories.Queries.GetAllCategories;
 using YFCore.Application.Contracts;
 using YFCore.Application.ProcedureTypes.Commands.CreateProcedureType;
 using YFCore.Application.ProcedureTypes.Contracts;

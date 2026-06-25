@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 using MediatR;
 
+using YFCore.Application.Categories.Queries.Dtos;
 using YFCore.Domain.Categories.Repository;
 
-namespace YFCore.Application.Category.Queries.GetAllCategories
+namespace YFCore.Application.Categories.Queries.GetAllCategories
 {
     public sealed class GetAllCategoriesHandler : IRequestHandler<GetAllCategoriesQuery, IEnumerable<CategoryDto>>
     {

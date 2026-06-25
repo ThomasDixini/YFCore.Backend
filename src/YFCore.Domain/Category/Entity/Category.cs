@@ -14,10 +14,9 @@ namespace YFCore.Domain.Categories.Entity
         public string Description { get; private set; }
         public bool Active { get; private set; }
 
-        public Category(Guid id, string name, string description)
+        public Category(string name, string description)
         {
             this.Validate(name, description);
-            this.Id = id;
             this.Name = name.ToUpper();
             this.Description = description.ToUpper();
             this.Active = true;

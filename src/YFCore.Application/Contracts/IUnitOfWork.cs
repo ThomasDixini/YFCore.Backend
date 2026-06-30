@@ -7,6 +7,6 @@ namespace YFCore.Application.Contracts
 {
     public interface IUnitOfWork
     {
-        Task CommitAsync(CancellationToken cancellationToken = default);
+        Task<bool> CommitAsync(CancellationToken cancellationToken = default);
     }
 }

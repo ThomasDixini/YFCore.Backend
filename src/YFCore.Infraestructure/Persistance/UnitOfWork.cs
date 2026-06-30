@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using MediatR;
-
 using YFCore.Application.Contracts;
 using YFCore.Domain.Shared.Base;
+using YFCore.Infraestructure.EventHandler;
 
 namespace YFCore.Infraestructure.Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly IMediator _mediator;
+        private readonly IDomainEventDispatcher _dispatcher;
         private readonly AppDbContext _context;
 
-        public UnitOfWork(AppDbContext context, IMediator mediator)
+        public UnitOfWork(AppDbContext context, IDomainEventDispatcher dispatcher)
         {
             _context = context;
-            _mediator = mediator;
+            _dispatcher = dispatcher;
         }
         public async Task<bool> CommitAsync(CancellationToken cancellationToken = default)
         {
@@ -29,14 +28,20 @@ namespace YFCore.Infraestructure.Persistance
             var domainEvents = domainEntities
                 .SelectMany(c => c.Entity.DomainEvents)
                 .ToList();
+
+            var success = await _context.SaveChangesAsync(cancellationToken) > 0;
+
+            if (!success)
+                return false;
+
             domainEntities.ForEach(entity => entity.Entity.ClearDomainEvents());
 
             foreach (var domainEvent in domainEvents)
             {
-                await _mediator.Publish(domainEvent);
+                await _dispatcher.Dispatch(domainEvent, cancellationToken);
             }
 
-            return await _context.SaveChangesAsync(cancellationToken) > 0;
+            return success;
         }
     }
 }

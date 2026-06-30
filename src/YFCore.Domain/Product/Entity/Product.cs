@@ -17,8 +17,9 @@ namespace YFCore.Domain.ProductEntity
         public bool Active { get; private set; }
         public Guid CategoryId { get; private set; }
 
-        public Product(string name, string description, Money price, Guid categoryId)
+        public Product(string name, string description, Guid categoryId)
         {
+            var price = new Money(0, "USD");
             this.Validate(name, description, price, categoryId);
             this.Name = name.ToUpper();
             this.Description = description.ToUpper();

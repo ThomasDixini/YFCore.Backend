@@ -16,9 +16,11 @@ using YFCore.Application.ProcedureTypes.Contracts;
 using YFCore.Application.Shared.Validators;
 using YFCore.Domain.Categories.Repository;
 using YFCore.Domain.ProcedureTypes.Repository;
+using YFCore.Domain.ProductRepository;
 using YFCore.Infraestructure.Persistance;
 using YFCore.Infraestructure.Repository.Categories;
 using YFCore.Infraestructure.Repository.ProcedureTypes;
+using YFCore.Infraestructure.Repository.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProcedureTypeRepository, ProcedureTypeRepository>();
 builder.Services.AddScoped<IProcedureTypeRead, ProcedureTypeRead>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

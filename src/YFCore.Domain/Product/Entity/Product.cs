@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using YFCore.Domain.Shared.Base;
 using YFCore.Domain.Shared.Exceptions;
 using YFCore.Domain.Shared.ValueObjects;
 
 namespace YFCore.Domain.ProductEntity
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public string Id { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Money Price { get; private set; }
         public bool Active { get; private set; }
         public Guid CategoryId { get; private set; }
 
-        public Product(string id, string name, string description, Money price, Guid categoryId)
+        public Product(string name, string description, Money price, Guid categoryId)
         {
             this.Validate(name, description, price, categoryId);
-            this.Id = id;
             this.Name = name.ToUpper();
             this.Description = description.ToUpper();
             this.Price = price;

@@ -41,6 +41,14 @@ namespace YFCore.Domain.Categories.Entity
             this.Description = description.ToUpper();
         }
 
+        public void UpdateNameAndDescription(string name, string description)
+        {
+            if (name is not null)
+                ChangeName(name);
+            if (description is not null)
+                ChangeDescription(description);
+        }
+
         public void Activate()
         {
             this.Active = true;

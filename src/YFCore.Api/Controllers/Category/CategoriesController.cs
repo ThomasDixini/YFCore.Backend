@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using YFCore.Api.Controllers;
 using YFCore.Application.Categories.Commands.CreateCategoryCommand;
+using YFCore.Application.Categories.Commands.UpdateCategory;
 using YFCore.Application.Categories.Queries.Dtos;
 using YFCore.Application.Categories.Queries.GetAllCategories;
 using YFCore.Application.Categories.Queries.GetCategoryById;
@@ -41,6 +42,12 @@ namespace YFCore.Api.Controllers.Categories
         {
             var categoryCreatedId = await _mediator.Send(command);
             return CreatedResponse(nameof(GetById), new { id = categoryCreatedId.ToString() }, categoryCreatedId.ToString(), "Category retrieved successfully.");
+        }
+        [HttpPatch]
+        public async Task<ActionResult<ApiResponse<CategoryDto>>> Update(UpdateCategoryCommand command)
+        {
+            var categoryUpdated = await _mediator.Send(command);
+            return OkResponse(categoryUpdated, "Procedure type updated successfully.");
         }
     }
 

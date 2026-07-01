@@ -46,15 +46,15 @@ namespace YFCore.Api.Controllers.Products
         public async Task<ActionResult<ApiResponse<string>>> Create(CreateProductCommand command)
         {
             var productId = await _mediator.Send(command);
-            return CreatedResponse(nameof(GetProductById), new { id = productId }, productId.ToString(), "Product created successfully.");
+            return CreatedResponse(nameof(GetProductById), new { id = productId.ToString() }, productId.ToString(), "Product created successfully.");
         }
 
         [HttpPatch("{id:guid}")]
-        public async Task<ActionResult<ApiResponse<bool>>> Update(Guid id, UpdateProductCommand command)
+        public async Task<ActionResult<ApiResponse<string>>> Update(Guid id, UpdateProductCommand command)
         {
             command = command with { Id = id };
             var result = await _mediator.Send(command);
-            return OkResponse(result, "Product updated successfully.");
+            return OkResponse(result.ToString(), "Product updated successfully.");
         }
     }
 }

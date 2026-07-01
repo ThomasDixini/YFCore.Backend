@@ -29,14 +29,27 @@ namespace YFCore.Application.Products.Commands.UpdateProduct
         {
             var product = await _productRepository.GetByIdAsync(request.Id) ?? throw new DomainException("Product not found");
 
-            product.ChangeName(request.Name);
-            product.ChangeDescription(request.Description);
-            product.ChangePrice(new Money(request.PriceAmount, request.PriceCurrency));
-            product.ChangeCategory(request.CategoryId);
+            if (!string.IsNullOrWhiteSpace(request.Name))
+                product.ChangeName(request.Name);
 
-            if (request.Active != product.Active)
+            if (!string.IsNullOrWhiteSpace(request.Description))
+                product.ChangeDescription(request.Description);
+
+            if (request.PriceAmount.HasValue || request.PriceCurrency is not null)
             {
-                if (request.Active)
+                var price = new Money(
+                    request.PriceAmount ?? product.Price.Amount,
+                    request.PriceCurrency ?? product.Price.Currency
+                );
+                product.ChangePrice(price);
+            }
+
+            if (request.CategoryId.HasValue)
+                product.ChangeCategory(request.CategoryId.Value);
+
+            if (request.Active.HasValue && request.Active.Value != product.Active)
+            {
+                if (request.Active.Value)
                     product.Activate();
                 else
                     product.Deactivate();

@@ -24,7 +24,7 @@ namespace YFCore.Domain.ProcedureTypes.Entity
             this.Price = price;
         }
 
-        public void Validate(string name, string description, Money price)
+        private void Validate(string name, string description, Money price)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.");

@@ -27,7 +27,7 @@ namespace YFCore.Domain.ProductEntity
             this.CategoryId = categoryId;
         }
 
-        public void Validate(string name, string description, Money price, Guid categoryId)
+        private void Validate(string name, string description, Money price, Guid categoryId)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name cannot be empty.");

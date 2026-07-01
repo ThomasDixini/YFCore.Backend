@@ -19,7 +19,7 @@ namespace YFCore.Application.Products.Queries.GetProductById
 
         public async Task<ProductDTO?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(request.Id);
+            var product = await _productRepository.GetByIdWithCategoryAsync(request.Id);
             if (product is null)
                 return null;
 
@@ -30,7 +30,8 @@ namespace YFCore.Application.Products.Queries.GetProductById
                 product.Price.Amount,
                 product.Price.Currency,
                 product.Active,
-                product.CategoryId
+                product.CategoryId,
+                product.Category?.Name ?? string.Empty
             );
         }
     }

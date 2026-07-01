@@ -9,6 +9,7 @@ namespace YFCore.Application.Products.Queries.Dtos
         decimal PriceAmount,
         string PriceCurrency,
         bool Active,
-        Guid CategoryId
+        Guid CategoryId,
+        string CategoryName
     );
 }

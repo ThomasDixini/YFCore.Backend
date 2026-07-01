@@ -21,7 +21,7 @@ namespace YFCore.Application.Products.Queries.ListProducts
 
         public async Task<IEnumerable<ProductDTO>> Handle(ListProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _productRepository.GetAllAsync();
+            var products = await _productRepository.GetAllWithCategoryAsync();
             return products.Select(product => new ProductDTO(
                 product.Id,
                 product.Name,
@@ -29,7 +29,8 @@ namespace YFCore.Application.Products.Queries.ListProducts
                 product.Price.Amount,
                 product.Price.Currency,
                 product.Active,
-                product.CategoryId
+                product.CategoryId,
+                product.Category?.Name ?? string.Empty
             ));
         }
     }

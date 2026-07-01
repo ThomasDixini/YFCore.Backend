@@ -17,6 +17,11 @@ namespace YFCore.Infraestructure.Configs.Products
             builder.ToTable("Products");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.CategoryId).IsRequired();
+            builder.HasOne(c => c.Category)
+                .WithMany(c => c.Products)
+                .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(c => c.Name).IsRequired().HasMaxLength(200);
             builder.Property(c => c.Description).IsRequired().HasMaxLength(500);
             builder.Property(c => c.Active).IsRequired();

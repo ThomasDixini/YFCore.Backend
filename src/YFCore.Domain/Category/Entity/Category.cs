@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YFCore.Domain.Categories.Events;
+using YFCore.Domain.ProductEntity;
 using YFCore.Domain.Shared.Base;
 
 namespace YFCore.Domain.Categories.Entity
@@ -13,6 +14,7 @@ namespace YFCore.Domain.Categories.Entity
         public string Name { get; private set; }
         public string Description { get; private set; }
         public bool Active { get; private set; }
+        public ICollection<Product> Products { get; private set; } = new List<Product>();
 
         public Category(string name, string description)
         {

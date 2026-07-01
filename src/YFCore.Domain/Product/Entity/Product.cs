@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using YFCore.Domain.Categories.Entity;
 using YFCore.Domain.Shared.Base;
 using YFCore.Domain.Shared.Exceptions;
 using YFCore.Domain.Shared.ValueObjects;
@@ -16,6 +17,7 @@ namespace YFCore.Domain.ProductEntity
         public Money Price { get; private set; }
         public bool Active { get; private set; }
         public Guid CategoryId { get; private set; }
+        public Category? Category { get; private set; }
 
         public Product(string name, string description, Guid categoryId)
         {

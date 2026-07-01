@@ -19,6 +19,11 @@ namespace YFCore.Infraestructure.Models.Categories
             builder.Property(c => c.Name).IsRequired().HasMaxLength(200);
             builder.Property(c => c.Description).IsRequired().HasMaxLength(500);
             builder.Property(c => c.Active).IsRequired();
+
+            builder.HasMany(c => c.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

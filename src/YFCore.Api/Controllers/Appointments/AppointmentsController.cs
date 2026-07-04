@@ -38,7 +38,7 @@ namespace YFCore.Api.Controllers.Appointments
             if (appointment is null)
                 return NotFound("Appointment not found.");
 
-            return OkResponse(appointment, "Appointment retrieved successfully.");
+            return OkResponse<AppointmentDTO?>(appointment, "Appointment retrieved successfully.");
         }
 
         [HttpPost]

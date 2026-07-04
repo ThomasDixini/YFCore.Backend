@@ -23,6 +23,7 @@ using YFCore.Infraestructure.Repository.Categories;
 using YFCore.Infraestructure.Repository.ProcedureTypes;
 using YFCore.Infraestructure.Repository.Products;
 using YFCore.Domain.AppointmentRepository;
+using YFCore.Infraestructure.Services.Notification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,7 @@ builder.Services.AddTransient(
     typeof(IPipelineBehavior<,>),
     typeof(ValidationBehavior<,>)
 );
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProcedureTypeRepository, ProcedureTypeRepository>();

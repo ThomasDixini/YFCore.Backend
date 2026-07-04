@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MediatR;
+
 using YFCore.Application.Contracts;
+using YFCore.Application.Shared.Events;
 using YFCore.Domain.Appointments.Events;
 
 namespace YFCore.Application.Appointment.Handler
 {
-    public class AppointmentConfirmedHandler
+    public class AppointmentConfirmedHandler : INotificationHandler<DomainEventNotification<AppointmentConfirmed>>
     {
         private readonly INotificationService _notificationService;
 
@@ -17,9 +20,9 @@ namespace YFCore.Application.Appointment.Handler
             _notificationService = notificationService;
         }
 
-        public async Task Handle(AppointmentConfirmed appointmentConfirmed)
+        public async Task Handle(DomainEventNotification<AppointmentConfirmed> notification, CancellationToken cancellationToken)
         {
-            await _notificationService.SendAsync(appointmentConfirmed.Token, "Your appointment has been confirmed at " + appointmentConfirmed.ConfirmedAt + ".", "Appointment Confirmed");
+            await _notificationService.SendAsync(notification.DomainEvent.Token, "Your appointment has been confirmed at " + notification.DomainEvent.ConfirmedAt + ".", "Appointment Confirmed");
         }
     }
 }

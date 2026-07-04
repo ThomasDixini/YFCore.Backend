@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using MediatR;
+
 using YFCore.Application.Contracts;
+using YFCore.Application.Shared.Events;
 using YFCore.Domain.Appointments.Events;
 
 namespace YFCore.Application.Appointment.Handler
 {
-    public class AppointmentFinishedHandler
+    public class AppointmentFinishedHandler : INotificationHandler<DomainEventNotification<AppointmentFinished>>
     {
         private readonly INotificationService _notificationService;
 
@@ -17,9 +20,9 @@ namespace YFCore.Application.Appointment.Handler
             _notificationService = notificationService;
         }
 
-        public async Task Handle(AppointmentFinished appointmentFinished)
+        public async Task Handle(DomainEventNotification<AppointmentFinished> notification, CancellationToken cancellationToken)
         {
-            await _notificationService.SendAsync(appointmentFinished.Token, "Your appointment has been finished at " + appointmentFinished.FinishedAt + ".", "Appointment Finished");
+            await _notificationService.SendAsync(notification.DomainEvent.Token, "Your appointment has been finished at " + notification.DomainEvent.FinishedAt + ".", "Appointment Finished");
         }
     }
 }

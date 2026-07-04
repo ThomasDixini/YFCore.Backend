@@ -38,8 +38,7 @@ namespace YFCore.Api.Controllers.Products
             var product = await _mediator.Send(new GetProductByIdQuery(id));
             if (product is null)
                 return ErrorResponse<ProductDTO?>(404, "Product not found.");
-
-            return OkResponse(product, "Product retrieved successfully.");
+            return OkResponse<ProductDTO?>(product, "Product retrieved successfully.");
         }
 
         [HttpPost]

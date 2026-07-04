@@ -19,8 +19,9 @@ namespace YFCore.Domain.Appointments.Entity
         public Guid UserId { get; private set; }
         public string Token { get; private set; }
         public UnavailableTimeSlots TimeSlots { get; private set; }
-        public Appointment(Money price, Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
+        public Appointment(Guid procedureTypeId, Guid userId, UnavailableTimeSlots timeSlots)
         {
+            var price = new Money(0, "USD");
             this.Validate(price, procedureTypeId, userId, timeSlots);
             this.Status = AppointmentStatus.AwaitingConfirmation;
             this.Price = price;

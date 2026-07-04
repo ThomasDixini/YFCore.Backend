@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
+using YFCore.Domain.Appointments.Entity;
 using YFCore.Domain.Categories.Entity;
 using YFCore.Domain.ProcedureTypes.Entity;
 using YFCore.Domain.ProductEntity;
@@ -18,6 +19,7 @@ namespace YFCore.Infraestructure.Persistance
         : base(options)
         {
         }
+        public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProcedureType> ProcedureTypes { get; set; }
         public DbSet<Product> Products { get; set; }

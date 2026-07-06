@@ -16,15 +16,15 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsAppointment
         [Fact]
         public void Constructor_ShouldInitializeProperties_WhenValidDataIsProvided()
         {
-            var price = new Money(100m, "USD");
             var procedureTypeId = Guid.NewGuid();
             var userId = Guid.NewGuid();
             var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
 
-            var appointment = new Appointment(price, procedureTypeId, userId, timeSlots);
+            var appointment = new Appointment(procedureTypeId, userId, timeSlots);
 
             appointment.Status.Should().Be(AppointmentStatus.AwaitingConfirmation);
-            appointment.Price.Should().Be(price);
+            appointment.Price.Amount.Should().Be(0m);
+            appointment.Price.Currency.Should().Be("USD");
             appointment.ProcedureTypeId.Should().Be(procedureTypeId);
             appointment.UserId.Should().Be(userId);
             appointment.Token.Should().NotBeNullOrWhiteSpace();
@@ -32,39 +32,12 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsAppointment
         }
 
         [Fact]
-        public void Constructor_ShouldThrow_WhenPriceCurrencyIsNull()
-        {
-            var price = new Money(100m, null);
-            var procedureTypeId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
-            var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
-
-            Action act = () => new Appointment(price, procedureTypeId, userId, timeSlots);
-
-            act.Should().Throw<ArgumentNullException>();
-        }
-
-        [Fact]
-        public void Constructor_ShouldThrow_WhenPriceIsNegative()
-        {
-            var price = new Money(-10m, "USD");
-            var procedureTypeId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
-            var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
-
-            Action act = () => new Appointment(price, procedureTypeId, userId, timeSlots);
-
-            act.Should().Throw<ArgumentException>().WithMessage("Price cannot be negative.");
-        }
-
-        [Fact]
         public void Constructor_ShouldThrow_WhenProcedureTypeIdIsEmpty()
         {
-            var price = new Money(100m, "USD");
             var userId = Guid.NewGuid();
             var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
 
-            Action act = () => new Appointment(price, Guid.Empty, userId, timeSlots);
+            Action act = () => new Appointment(Guid.Empty, userId, timeSlots);
 
             act.Should().Throw<ArgumentException>().WithMessage("ProcedureTypeId cannot be empty.");
         }
@@ -72,11 +45,10 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsAppointment
         [Fact]
         public void Constructor_ShouldThrow_WhenUserIdIsEmpty()
         {
-            var price = new Money(100m, "USD");
             var procedureTypeId = Guid.NewGuid();
             var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
 
-            Action act = () => new Appointment(price, procedureTypeId, Guid.Empty, timeSlots);
+            Action act = () => new Appointment(procedureTypeId, Guid.Empty, timeSlots);
 
             act.Should().Throw<ArgumentException>().WithMessage("UserId cannot be empty.");
         }
@@ -84,11 +56,10 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsAppointment
         [Fact]
         public void Constructor_ShouldThrow_WhenTimeSlotsIsNull()
         {
-            var price = new Money(100m, "USD");
             var procedureTypeId = Guid.NewGuid();
             var userId = Guid.NewGuid();
 
-            Action act = () => new Appointment(price, procedureTypeId, userId, null!);
+            Action act = () => new Appointment(procedureTypeId, userId, null!);
 
             act.Should().Throw<ArgumentException>().WithMessage("TimeSlots cannot be null or empty.");
         }
@@ -216,12 +187,11 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Domain.TestsAppointment
 
         private static Appointment CreateDefaultAppointment()
         {
-            var price = new Money(100m, "USD");
             var procedureTypeId = Guid.NewGuid();
             var userId = Guid.NewGuid();
             var timeSlots = new UnavailableTimeSlots(Date.Create(2026, 6, 9), new[] { new TimeOnly(10, 0) });
 
-            return new Appointment(price, procedureTypeId, userId, timeSlots);
+            return new Appointment(procedureTypeId, userId, timeSlots);
         }
     }
 }

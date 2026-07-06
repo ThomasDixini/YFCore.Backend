@@ -9,7 +9,7 @@ using YFCore.Application.Contracts;
 using YFCore.Application.Shared.Events;
 using YFCore.Domain.Appointments.Events;
 
-namespace YFCore.Application.Appointment.Handler
+namespace YFCore.Application.Appointments.Handler
 {
     public class AppointmentFinishedHandler : INotificationHandler<DomainEventNotification<AppointmentFinished>>
     {

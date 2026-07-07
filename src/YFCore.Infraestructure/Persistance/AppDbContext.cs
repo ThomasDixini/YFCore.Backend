@@ -9,6 +9,7 @@ using YFCore.Domain.Appointments.Entity;
 using YFCore.Domain.Categories.Entity;
 using YFCore.Domain.ProcedureTypes.Entity;
 using YFCore.Domain.ProductEntity;
+using YFCore.Domain.Users.Entity;
 using YFCore.Infraestructure.Models.Categories;
 
 namespace YFCore.Infraestructure.Persistance
@@ -23,6 +24,7 @@ namespace YFCore.Infraestructure.Persistance
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProcedureType> ProcedureTypes { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(

@@ -10,20 +10,33 @@ namespace YFCore.Domain.Users.Entity
 {
     public class User : BaseEntity
     {
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
-        public string City { get; private set; }
-        public Phone Phone { get; private set; }
-        public Email Email { get; private set; }
+        public string Name { get; private set; } = string.Empty;
+        public string LastName { get; private set; } = string.Empty;
+        public string City { get; private set; } = string.Empty;
+        public Phone Phone { get; private set; } = default!;
+        public Email Email { get; private set; } = default!;
+        public string PasswordHash { get; private set; } = string.Empty;
+
+        private User() { }
 
         public User(string name, string lastName, Phone phone, Email email, string city)
         {
+            this.Id = Guid.NewGuid();
             this.Validate(name, lastName, phone, email, city);
             this.Name = name.ToUpper();
             this.LastName = lastName.ToUpper();
             this.Phone = phone;
             this.Email = email;
             this.City = city.ToUpper();
+            this.PasswordHash = string.Empty;
+        }
+
+        public void SetPasswordHash(string passwordHash)
+        {
+            if (string.IsNullOrWhiteSpace(passwordHash))
+                throw new ArgumentException("Password hash cannot be empty.", nameof(passwordHash));
+
+            this.PasswordHash = passwordHash;
         }
 
         public void Validate(string name, string lastName, Phone phone, Email email, string city)

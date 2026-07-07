@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace YFCore.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     public abstract class BaseController : ControllerBase
     {
         protected ActionResult<ApiResponse<T>> OkResponse<T>(T data, string? message = null)

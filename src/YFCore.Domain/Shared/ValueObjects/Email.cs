@@ -18,7 +18,7 @@ namespace YFCore.Domain.Shared.ValueObjects
             if (!IsValidEmail(trimmedValue))
                 throw new ArgumentException("Email is not valid.", nameof(value));
 
-            this.Value = trimmedValue;
+            this.Value = trimmedValue.ToLowerInvariant();
         }
 
         private static bool IsValidEmail(string value)

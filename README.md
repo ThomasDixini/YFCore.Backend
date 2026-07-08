@@ -1,114 +1,104 @@
 # YFCore Backend
 
-> Backend desenvolvido em ASP.NET Core utilizando Domain-Driven Design (DDD), Clean Architecture, CQRS e Entity Framework Core.
+<p align="center">
+  <img src="./docs/images/banner.png" alt="YFCore Banner" width="100%">
+</p>
 
-![.NET](https://img.shields.io/badge/.NET-10-purple)
-![C#](https://img.shields.io/badge/C%23-13-blue)
+<p align="center">
+
+![.NET](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-13-239120?logo=csharp&logoColor=white)
+![Architecture](https://img.shields.io/badge/Clean%20Architecture-DDD-blue)
+![CQRS](https://img.shields.io/badge/CQRS-MediatR-success)
+![Entity Framework](https://img.shields.io/badge/EF-Core-purple)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
+
+</p>
+
+> Backend desenvolvido em **ASP.NET Core** utilizando **Domain-Driven Design (DDD)**, **Clean Architecture**, **CQRS**, **Entity Framework Core** e **JWT Authentication**, com foco em escalabilidade, manutenção e boas práticas de desenvolvimento.
+
+---
+
+# Índice
+
+- [Sobre](#sobre)
+- [Principais Funcionalidades](#principais-funcionalidades)
+- [Arquitetura](#arquitetura)
+- [Tecnologias](#tecnologias)
+- [Estrutura da Solução](#estrutura-da-solução)
+- [Começando](#começando)
+- [Autenticação](#autenticação)
+- [Testes](#testes)
+- [Documentação](#documentação)
+- [Roadmap](#roadmap)
+- [Contribuindo](#contribuindo)
+- [Autor](#autor)
 
 ---
 
 # Sobre
 
-O YFCore Backend é uma API REST desenvolvida para gerenciamento de clínicas estéticas, permitindo controlar usuários, procedimentos, agendamentos e demais recursos da aplicação.
+O **YFCore Backend** é uma API REST desenvolvida para gerenciamento de clínicas estéticas, seguindo princípios modernos de arquitetura de software.
 
-O projeto foi desenvolvido seguindo princípios modernos de arquitetura de software visando:
+O principal objetivo deste projeto foi aplicar conceitos utilizados em sistemas corporativos, priorizando:
 
+- Separação de responsabilidades
 - Escalabilidade
-- Baixo acoplamento
 - Alta coesão
-- Facilidade de testes
+- Baixo acoplamento
+- Facilidade de manutenção
+- Testabilidade
 - Evolução contínua
 
----
-
-# Objetivos
-
-- Demonstrar boas práticas em .NET
-- Aplicar Domain-Driven Design
-- Aplicar Clean Architecture
-- Utilizar CQRS com MediatR
-- Centralizar regras de negócio no domínio
-- Facilitar manutenção e evolução
+O projeto foi desenvolvido como forma de aprofundar conhecimentos em arquitetura de software e boas práticas no ecossistema .NET.
 
 ---
 
-# Tecnologias
+# Principais Funcionalidades
 
-- ASP.NET Core
-- .NET 10
-- Entity Framework Core
-- SQL Server
-- MediatR
-- FluentValidation
-- JWT Authentication
-- Docker
-- Swagger
-- xUnit
-- Moq
+- Autenticação utilizando JWT
+- Gerenciamento de usuários
+- Gerenciamento de categorias
+- Gerenciamento de tipos de procedimentos
+- Agendamento de procedimentos
+- Validações utilizando FluentValidation
+- Separação de Commands e Queries (CQRS)
+- Publicação de Domain Events
+- Persistência utilizando Entity Framework Core
+- Documentação interativa utilizando Scalar
 
 ---
 
 # Arquitetura
 
-O projeto segue o modelo de Clean Architecture.
+O projeto segue os princípios da **Clean Architecture**.
 
+```text
+                Client
+                   │
+                   ▼
+              ASP.NET API
+                   │
+                   ▼
+             Application
+                   │
+                   ▼
+               Domain
+                   ▲
+                   │
+           Infrastructure
+                   │
+                   ▼
+              SQL Server
 ```
 
-API
+## Princípios adotados
 
-↓
-
-Application
-
-↓
-
-Domain
-
-↑
-
-Infrastructure
-
-```
-
-Cada camada possui responsabilidades bem definidas.
-
-| Projeto | Responsabilidade |
-|----------|------------------|
-| API | Endpoints REST |
-| Application | Casos de uso |
-| Domain | Regras de negócio |
-| Infrastructure | Persistência |
-
----
-
-# Estrutura
-
-```
-
-src/
-
-YFCore.Api
-
-YFCore.Application
-
-YFCore.Domain
-
-YFCore.Infrastructure
-
-tests/
-
-docs/
-
-```
-
----
-
-# Princípios adotados
-
+- Clean Architecture
+- Domain-Driven Design
 - SOLID
 - Clean Code
-- Domain-Driven Design
 - CQRS
 - Repository Pattern
 - Unit of Work
@@ -117,7 +107,49 @@ docs/
 
 ---
 
-# Fluxo da aplicação
+# Tecnologias
+
+| Categoria | Tecnologias |
+|-----------|-------------|
+| Backend | ASP.NET Core (.NET 10) |
+| Linguagem | C# |
+| Banco de Dados | SQL Server |
+| ORM | Entity Framework Core |
+| Arquitetura | Clean Architecture + DDD |
+| Mensageria Interna | MediatR |
+| Validação | FluentValidation |
+| Autenticação | JWT Bearer |
+| Documentação | Scalar |
+| Testes | xUnit, Moq, FluentAssertions |
+
+---
+
+# Estrutura da Solução
+
+```text
+src/
+│
+├── YFCore.Api
+├── YFCore.Application
+├── YFCore.Domain
+└── YFCore.Infrastructure
+
+tests/
+│
+└── YFCore.Tests.Unit
+
+docs/
+│
+├── adr/
+├── api/
+├── architecture/
+├── diagrams/
+└── guides/
+```
+
+---
+
+# Fluxo da Aplicação
 
 ```text
 HTTP Request
@@ -136,6 +168,10 @@ Handler
 
 ↓
 
+Domain
+
+↓
+
 Repository
 
 ↓
@@ -149,84 +185,55 @@ SQL Server
 
 ---
 
-# CQRS
+# Começando
 
-O projeto separa operações de leitura e escrita.
+## Clonar o repositório
 
-## Commands
+```bash
+git clone https://github.com/ThomasDixini/YFCore.Backend.git
+```
 
-Responsáveis por alterar o estado da aplicação.
+## Restaurar dependências
 
-Exemplo:
+```bash
+dotnet restore
+```
 
-- Create Procedure
-- Update Procedure
-- Delete Procedure
+## Aplicar as migrations
 
-## Queries
+```bash
+dotnet ef database update
+```
 
-Responsáveis apenas por leitura.
+## Executar
 
-Exemplo:
-
-- Get Procedure
-- Get Procedures
-
----
-
-# Domain Events
-
-Eventos de domínio são utilizados para desacoplar regras de negócio.
-
-Exemplo:
-
-AppointmentScheduled
-
-↓
-
-Notification Handler
-
-↓
-
-Envio de notificações
-
----
-
-# Validações
-
-Todas as validações são realizadas utilizando FluentValidation.
-
-Cada Command possui seu respectivo Validator.
+```bash
+dotnet run --project src/YFCore.Api
+```
 
 ---
 
 # Autenticação
 
-A autenticação é realizada utilizando JWT.
+A API utiliza autenticação baseada em **JWT Bearer Token**.
 
-Fluxo:
+Após autenticar-se, envie o token em todas as requisições protegidas:
 
-Login
-
-↓
-
-Token JWT
-
-↓
-
-Bearer Authentication
-
-↓
-
-API
+```http
+Authorization: Bearer {token}
+```
 
 ---
 
-# Banco de Dados
+# Documentação da API
 
-Persistência realizada utilizando Entity Framework Core.
+A API possui documentação interativa utilizando **Scalar**.
 
-O acesso aos dados é abstraído através de Repositories.
+Após iniciar a aplicação, acesse:
+
+```text
+/scalar
+```
 
 ---
 
@@ -238,31 +245,7 @@ O projeto possui testes unitários utilizando:
 - Moq
 - FluentAssertions
 
----
-
-# Executando localmente
-
-## Clonar
-
-```bash
-git clone https://github.com/SEU_USUARIO/YFCore.Backend.git
-```
-
-## Restaurar
-
-```bash
-dotnet restore
-```
-
-## Executar
-
-```bash
-dotnet run
-```
-
----
-
-# Executando os testes
+Executar todos os testes:
 
 ```bash
 dotnet test
@@ -270,50 +253,72 @@ dotnet test
 
 ---
 
-# Migrations
+# Documentação
 
-Criar migration
+Toda a documentação do projeto encontra-se na pasta `docs`.
 
-```bash
-dotnet ef migrations add InitialCreate
-```
-
-Aplicar
-
-```bash
-dotnet ef database update
-```
+| Documento | Descrição |
+|------------|-----------|
+| Architecture | Arquitetura da aplicação |
+| ADR | Architecture Decision Records |
+| API | Documentação dos endpoints |
+| Diagrams | Diagramas Mermaid |
+| Guides | Guias de desenvolvimento |
 
 ---
 
-# Documentação
+# Destaques do Projeto
 
-Toda documentação encontra-se na pasta:
-
-```
-docs/
-```
-
-Incluindo:
-
-- Arquitetura
-- ADRs
-- Diagramas
-- API
+- Arquitetura em camadas
+- Modelo de domínio rico
+- Regras de negócio centralizadas
+- Separação entre leitura e escrita (CQRS)
+- Publicação de Domain Events
+- Validação desacoplada
+- Documentação completa
+- Código organizado para evolução e manutenção
 
 ---
 
 # Roadmap
 
 - [ ] Refresh Token
-- [ ] Cache Redis
+- [ ] Testes de Integração
 - [ ] Health Checks
 - [ ] Observabilidade
+- [ ] Cache distribuído
 - [ ] Mensageria
-- [ ] Testes de Integração
+- [ ] Versionamento da API
+
+---
+
+# Contribuindo
+
+Contribuições são bem-vindas.
+
+Antes de abrir um Pull Request:
+
+- Execute todos os testes
+- Siga os padrões de código
+- Utilize Conventional Commits
+- Atualize a documentação quando necessário
+
+---
+
+# Autor
+
+**Tomás Dixini**
+
+Desenvolvedor Full Stack | .NET | C# | ASP.NET Core
+
+GitHub:
+https://github.com/ThomasDixini
+
+LinkedIn:
+https://www.linkedin.com/in/thomasdixini/
 
 ---
 
 # Licença
 
-MIT
+Este projeto está licenciado sob a licença MIT.

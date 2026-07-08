@@ -19,6 +19,8 @@ using YFCore.Domain.Appointments.Entity;
 using YFCore.Domain.Appointments.Enum;
 using YFCore.Domain.Shared.Exceptions;
 using YFCore.Domain.Shared.ValueObjects;
+using YFCore.Domain.Users.Entity;
+using YFCore.Domain.Users.Repository;
 
 namespace YFCore.Tests.Unit.YFCore.Tests.Application
 {
@@ -28,10 +30,12 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Application
         public async Task CreateAppointmentCommandHandler_ShouldAddAppointmentAndCommit()
         {
             var appointmentRepository = new Mock<IAppointmentRepository>();
+            var userRepository = new Mock<IUserRepository>();
             var unitOfWork = new Mock<IUnitOfWork>();
+            userRepository.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(new User("Name", "LastName", new Phone("11999999999"), new Email("user@example.com"), "City"));
             unitOfWork.Setup(u => u.CommitAsync(It.IsAny<CancellationToken>())).ReturnsAsync(true);
 
-            var handler = new CreateAppointmentCommandHandler(appointmentRepository.Object, unitOfWork.Object);
+            var handler = new CreateAppointmentCommandHandler(appointmentRepository.Object, userRepository.Object, unitOfWork.Object);
             var request = new CreateAppointmentCommand(
                 125m,
                 "USD",
@@ -45,6 +49,31 @@ namespace YFCore.Tests.Unit.YFCore.Tests.Application
 
             appointmentRepository.Verify(r => r.Add(It.IsAny<Appointment>()), Times.Once);
             unitOfWork.Verify(u => u.CommitAsync(It.IsAny<CancellationToken>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task CreateAppointmentCommandHandler_ShouldThrow_WhenUserDoesNotExist()
+        {
+            var appointmentRepository = new Mock<IAppointmentRepository>();
+            var userRepository = new Mock<IUserRepository>();
+            var unitOfWork = new Mock<IUnitOfWork>();
+            userRepository.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((User?)null);
+
+            var handler = new CreateAppointmentCommandHandler(appointmentRepository.Object, userRepository.Object, unitOfWork.Object);
+            var request = new CreateAppointmentCommand(
+                125m,
+                "USD",
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                "2026-06-09",
+                new[] { "10:00" }
+            );
+
+            Func<Task> act = async () => await handler.Handle(request, CancellationToken.None);
+
+            await act.Should().ThrowAsync<DomainException>().WithMessage("User not found.");
+            appointmentRepository.Verify(r => r.Add(It.IsAny<Appointment>()), Times.Never);
+            unitOfWork.Verify(u => u.CommitAsync(It.IsAny<CancellationToken>()), Times.Never);
         }
 
         [Fact]

@@ -280,18 +280,6 @@ Toda a documentação do projeto encontra-se na pasta `docs`.
 
 ---
 
-# Roadmap
-
-- [ ] Refresh Token
-- [ ] Testes de Integração
-- [ ] Health Checks
-- [ ] Observabilidade
-- [ ] Cache distribuído
-- [ ] Mensageria
-- [ ] Versionamento da API
-
----
-
 # Contribuindo
 
 Contribuições são bem-vindas.
@@ -307,9 +295,9 @@ Antes de abrir um Pull Request:
 
 # Autor
 
-**Tomás Dixini**
+**Thomás Dixini**
 
-Desenvolvedor Full Stack | .NET | C# | ASP.NET Core
+Desenvolvedor Backend | .NET | C# | ASP.NET Core
 
 GitHub:
 https://github.com/ThomasDixini

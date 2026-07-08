@@ -1,7 +1,7 @@
 # YFCore Backend
 
 <p align="center">
-  <img src="./docs/images/banner.png" alt="YFCore Banner" width="100%">
+  <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/27da98d6-097f-407d-8cc6-38d577a1e823" />
 </p>
 
 <p align="center">
